@@ -159,9 +159,20 @@ class Target extends React.Component {
   }
 }
 
+class Footer extends React.Component {
+    render() {
+        return (
+            <div>
+                <p>Source: https://github.com/mohtar/transjawi</p>
+                <p>This website running this fork: https://github.com/k4ml/transjawi</p>
+            </div>
+        );
+    }
+}
+
 class Main extends React.Component {
   render() {
-    return (<div><TitleBar/><Editor/></div>);
+    return (<div><TitleBar/><Editor/><Footer/></div>);
   }
 }
 
