@@ -22,3 +22,13 @@ command line:
 
 For instructions on how to download and install JDK, see https://www.java.com/.
 For Maven, see https://maven.apache.org/.
+
+
+Running through Docker
+======================
+
+A pre-build docker image is available at https://hub.docker.com/r/k4ml/transjawi.
+
+    docker run --rm -it -p 8888:8888 k4ml/transjawi
+
+The website then can be accessed at http://localhost:8888/.
