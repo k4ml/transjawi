@@ -6,8 +6,6 @@
 
 package transjawi;
 
-import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
@@ -18,8 +16,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.json.*;
 import javax.json.stream.*;
-
-import java.nio.file.*;
 
 public class Main {
 
@@ -33,14 +29,7 @@ public class Main {
     }
 
     void run() throws Exception {
-        if (isAlreadyRunning()) {
-            launchBrowser();
-        } else {
-            startServer();
-            minimizeToTray();
-            launchBrowser();
-            awaitServer();
-        }
+        startServer();
     }
 
     // Detects if the program is already running. If the port is occupied, it
@@ -51,11 +40,6 @@ public class Main {
         } catch (IOException ignored) {
             return false;
         }
-    }
-
-    void launchBrowser() throws Exception {
-        Desktop.getDesktop().browse(
-            new java.net.URI("http://localhost:" + port));
     }
 
     void startServer() throws Exception {
@@ -74,34 +58,6 @@ public class Main {
 
     void awaitServer() throws Exception {
         server.wait();
-    }
-
-    void minimizeToTray() throws Exception {
-        MenuItem defaultItem = new MenuItem("Launch browser");
-        defaultItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    launchBrowser();
-                } catch (Exception exception) {
-                    // Do nothing hehe
-                }
-            }});
-        
-        MenuItem quitItem = new MenuItem("Quit");
-        quitItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }});
-
-        PopupMenu popup = new PopupMenu();
-        popup.add(defaultItem);
-        popup.add(quitItem);
-
-        SystemTray.getSystemTray().add(new TrayIcon(
-            Toolkit.getDefaultToolkit().getImage(
-                getClass().getResource("/serve/favicon.png")),
-            "TransJawi",
-            popup));
     }
 
     static class AjaxServlet extends HttpServlet {
